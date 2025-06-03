@@ -1,5 +1,6 @@
 package rejpabook.rejpashop.service;
 
+import rejpabook.rejpashop.domain.item.Book;
 import rejpabook.rejpashop.domain.item.Item;
 import rejpabook.rejpashop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,17 @@ public class ItemService {
     @Transactional
     public void saveItem(Item item) {
         itemRepository.save(item);
+    }
+
+    /**
+     * 영속성 컨텍스트가 자동 변경
+     */
+    @Transactional
+    public void updateItem(Long id, String name, int price, int stockQuantity) {
+        Item item = itemRepository.findOne(id);
+        item.setName(name);
+        item.setPrice(price);
+        item.setStockQuantity(stockQuantity);
     }
 
     public List<Item> findItems() {
